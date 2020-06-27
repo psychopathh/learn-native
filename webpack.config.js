@@ -15,6 +15,7 @@ const jsLoaders = () => {
       loader: 'babel-loader',
       options: {
         presets: ['@babel/preset-env'],
+        plugins: ['@babel/plugin-proposal-class-properties'],
       },
     },
   ];
@@ -43,7 +44,7 @@ module.exports = {
   },
   devtool: isDev ? 'source-map' : false,
   devServer: {
-    port: 3001,
+    port: 3000,
     hot: isDev,
   },
   plugins: [
@@ -55,14 +56,12 @@ module.exports = {
         collapseWhitespace: isProd,
       },
     }),
-    new CopyPlugin({
-      patterns: [
-        {
-          from: path.resolve(__dirname, 'src/favicon.ico'),
-          to: path.resolve(__dirname, 'dist'),
-        },
-      ],
-    }),
+    new CopyPlugin([
+      {
+        from: path.resolve(__dirname, 'src/favicon.ico'),
+        to: path.resolve(__dirname, 'dist'),
+      },
+    ]),
     new MiniCssExtractPlugin({
       filename: filename('css'),
     }),
